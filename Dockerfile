@@ -1,14 +1,25 @@
-FROM openjdk:21
-
-ENV DATABASE_DRIVER=com.mysql.cj.jdbc.Driver \
-    DATABASE_URL=jdbc:mysql://host.docker.internal:3306/teste \
-    DATABASE_PW=152223 \
-    DATABASE_USERNAME=root \
-    FILES_PATH=src/filesPath
+#CRIANDO ARQUIVO EXECUTAVEL
+FROM maven:3-amazoncorretto-21 as builder
 
 WORKDIR /app
 
-COPY target/*jar app/pagamento.jar
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn clean package
+
+#EXECUTANDO PROJETO
+FROM openjdk:21
+
+ENV DATABASE_DRIVER= \
+    DATABASE_URL= \
+    DATABASE_PW= \
+    DATABASE_USERNAME= \
+    FILES_PATH=
+
+WORKDIR /app
+
+COPY --from=builder app/target/*jar app/pagamento.jar
 
 RUN mkdir -p $FILES_PATH
 
