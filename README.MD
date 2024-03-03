@@ -35,9 +35,7 @@ Substitua `nome_da_sua_imagem` pelo nome desejado para a imagem e `tag` pela ver
 
 1.  Após a construção bem-sucedida da imagem, execute o seguinte comando para iniciar o contêiner:
 
-bashCopy code
-
-    `docker run -p 8080:8080 -d nome_da_sua_imagem:tag` 
+        docker run -p 8080:8080 -d nome_da_sua_imagem:tag
 
 Este comando inicia o contêiner em segundo plano (`-d`) e mapeia a porta 8080 do contêiner para a porta 8080 do host (`-p 8080:8080`).
 
